@@ -18,4 +18,18 @@ model User {
   avatarUrl String?
   firstName String
   lastName  String
+  posts     Post[]
+}
+
+model Post {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  published     Boolean  @default(false)
+  title         String   @db.VarChar(255)
+  content       String
+  imageUrl      String
+  likes         Int
+  postedBy      User   @relation(fields: [postedById], references: [id])
+  postedById    String
 }
